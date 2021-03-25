@@ -1,20 +1,30 @@
 import org.apache.commons.math3.analysis.differentiation.DerivativeStructure;
+import org.apache.commons.math3.analysis.differentiation.MultivariateDifferentiableFunction;
+import org.apache.commons.math3.exception.MathIllegalArgumentException;
+import org.apache.commons.math3.exception.NumberIsTooLargeException;
+
+import java.util.Arrays;
 
 public class Test {
+    static double eps = 0.0000001;
+    static MultivariateDifferentiableFunction f = new MultivariateDifferentiableFunction() {
+        @Override
+        public DerivativeStructure value(DerivativeStructure[] derivativeStructures) throws MathIllegalArgumentException {
+            return derivativeStructures[0].multiply(derivativeStructures[0]).multiply(derivativeStructures[1]);
+        }
+
+        @Override
+        public double value(double[] doubles) {
+            return 0;
+        }
+    };
+
     public static void main(String[] args) {
-        int params = 2;
-        int order = 2;
-        double xRealValue =  2.5;
-        double yRealValue = -1.3;
-        DerivativeStructure x = new DerivativeStructure(params, order, 0, xRealValue);
-        DerivativeStructure y = new DerivativeStructure(params, order, 1, yRealValue);
-        DerivativeStructure f = DerivativeStructure.hypot(x, y);
-        DerivativeStructure g = f.log();
-        System.out.println("g        = " + g.getValue());
-        System.out.println("dg/dx    = " + g.getPartialDerivative(1, 0));
-        System.out.println("dg/dy    = " + g.getPartialDerivative(0, 1));
-        System.out.println("d2g/dx2  = " + g.getPartialDerivative(2, 0));
-        System.out.println("d2g/dxdy = " + g.getPartialDerivative(1, 1));
-        System.out.println("d2g/dy2  = " + g.getPartialDerivative(0, 2));
+        double[] point = {3, 4};
+        System.out.println(Arrays.toString(Gradient.value(point, f)));
+
     }
+
+
+
 }
