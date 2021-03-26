@@ -2,15 +2,15 @@
 public class GradientGreatDescent {
 
     public static double f(double x, double y) {
-        return (x - 1) * (x - 1) + (y - 2) * (y - 2) - 1;
+        return 2 * x * x + 3 * y * y + 5 * x - 4 * y;
     }
 
     public static double f_dx(double x, double y) {
-        return 2 * x - 2;
+        return 4 * x + 5;
     }
 
     public static double f_dy(double x, double y) {
-        return 2 * y - 2;
+        return 6 * y - 4;
     }
 
     public static double g(double x, double y, double lambda) {
@@ -18,7 +18,6 @@ public class GradientGreatDescent {
     }
 
     public static double df_normalize(double x, double y) {
-        System.out.println("norma " + Math.sqrt((f_dx(x, y)) * (f_dx(x, y)) + (f_dy(x, y)) * (f_dy(x, y))));
         return Math.sqrt((f_dx(x, y)) * (f_dx(x, y)) + (f_dy(x, y)) * (f_dy(x, y)));
     }
 
@@ -64,6 +63,6 @@ public class GradientGreatDescent {
     }
 
     public static void main(String[] args) {
-        gradient(10, 10, 0.0001);
+        gradient(-10, 10, 0.00001);
     }
 }
