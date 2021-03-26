@@ -1,7 +1,6 @@
 import org.apache.commons.math3.analysis.differentiation.DerivativeStructure;
 import org.apache.commons.math3.analysis.differentiation.MultivariateDifferentiableFunction;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
-import org.apache.commons.math3.exception.NumberIsTooLargeException;
 
 import java.util.Arrays;
 
@@ -24,7 +23,4 @@ public class Test {
         System.out.println(Arrays.toString(Gradient.value(point, f)));
 
     }
-
-
-
 }
