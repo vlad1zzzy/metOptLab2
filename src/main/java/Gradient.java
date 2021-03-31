@@ -24,6 +24,8 @@ public class Gradient {
 
     public static void main(String[] args) {
         GradientGreatDescent ggd = new GradientGreatDescent();
+        ConjugateGradient conjugateGradient = new ConjugateGradient();
         ggd.gradient(100, 100, EPS);
+        conjugateGradient.gradient(100, 100, 1, EPS);
     }
 }
