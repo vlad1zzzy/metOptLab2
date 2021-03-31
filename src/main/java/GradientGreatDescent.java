@@ -50,19 +50,21 @@ public class GradientGreatDescent {
             xk = x - lambda * f_dx(x, y);
             yk = y - lambda * f_dy(x, y);
 
-            System.out.println(k + ")  f(" + xk + ", " + yk + ") = " + f(xk, yk));
+            //System.out.println(k + ")  f(" + xk + ", " + yk + ") = " + f(xk, yk));
+            System.out.print(xk + ", ");
+            //System.out.print(yk + ", ");
 
             x = xk;
             y = yk;
             k++;
 
         } while (df_normalize(xk, yk) > epsilon);
-
         System.out.println("ANSWER : f( " + xk + ", " + yk + " ) = " + f(xk, yk));
         return f(xk, yk);
     }
 
+
     public static void main(String[] args) {
-        gradient(-10, 10, 0.00001);
+        gradient(100, 100, 0.0001);
     }
 }
