@@ -1,7 +1,6 @@
 
 public class Gradient {
-
-    public static double EPS;
+    public static double EPS = 0.0000001;
 
     public static double f(double x, double y) {
         return 2 * x * x + 3 * y * y + 5 * x - 4 * y;
@@ -24,8 +23,7 @@ public class Gradient {
     }
 
     public static void main(String[] args) {
-        final double eps = 0.0000001;
         GradientGreatDescent ggd = new GradientGreatDescent();
-        ggd.gradient(100, 100, eps);
+        ggd.gradient(100, 100, EPS);
     }
 }

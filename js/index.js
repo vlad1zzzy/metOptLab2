@@ -12,7 +12,7 @@ for(let i = 0; i < size; i++) {
     }
 }
 
-var trace1 = {
+let trace1 = {
     x: [24.575424232048235, 2.2634808835458315, -0.3538307718640712,
         -1.12807853907119, -1.2189019906026903, -1.245769197804767,
         -1.2489182842760236, -1.24985085474682, -1.2499576796702325],
@@ -26,7 +26,7 @@ var trace1 = {
     }
 };
 
-var trace2 = {
+let trace2 = {
     z: z,
     x: x,
     y: y,
@@ -40,6 +40,13 @@ var trace2 = {
     }
 }
 
-var data = [ trace1, trace2 ];
+let data = [ trace1, trace2 ];
 
-Plotly.newPlot('myDiv', data);
+let layout = {
+    title: "Gradient descent",
+    showlegend: false,
+    hovermode: 'closest',
+    bargap: 0,
+};
+
+Plotly.newPlot('plotly', data, layout);
