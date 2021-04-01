@@ -31,14 +31,13 @@ public class GradientGreatDescent {
             yk = y - lambda * Gradient.f_dy(x, y);
 
             //System.out.println(k + ")  f(" + xk + ", " + yk + ") = " + f(xk, yk));
-            //System.out.print(xk + ", ");
-            //System.out.print(yk + ", ");
+            //System.out.println(xk +", " + yk);
 
             x = xk;
             y = yk;
             k++;
 
-        } while (Gradient.df_normalize(xk, yk) > epsilon && k < 1000);
+        } while (Gradient.df_normalize(xk, yk) > epsilon );
         System.out.println("ANSWER : f( " + xk + ", " + yk + " ) = " + Gradient.f(xk, yk));
         return Gradient.f(xk, yk);
     }

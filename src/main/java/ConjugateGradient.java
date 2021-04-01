@@ -1,5 +1,8 @@
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class ConjugateGradient {
-    public double findMin(double a, double b, final double eps, double x, double y) {
+    public double findMin(double a, double b, QuadraticFunction function, final double eps, double[] x) {
         double s = 0.00000001;
         double x1, x2, f1, f2;
         if (s > eps) {
@@ -8,8 +11,8 @@ public class ConjugateGradient {
         do {
             x1 = (a + b - s) / 2;
             x2 = (a + b + s) / 2;
-            f1 = Gradient.g(x, y, x1);
-            f2 = Gradient.g(x, y, x2);
+            f1 = function.findG(x, x1);
+            f2 = function.findG(x, x2);
             if (f1 <= f2) {
                 b = x2;
             } else {
@@ -19,36 +22,42 @@ public class ConjugateGradient {
         return (a + b) / 2;
     }
 
-    public double gradient(double a, double b, int n, double epsilon) {
-        int k = 0;
-        double x = a, y = b, lambda, xk = a, yk = b, beta, px, py;
-        px = -Gradient.f_dx(x, y);
-        py = -Gradient.f_dy(x, y);
+    public void gradient(double[] x0, int n, QuadraticFunction function, double epsilon) {
+        int k = 0, q = 0;
+        double lambda, beta, g1;
+        double[] x = Arrays.copyOf(x0, x0.length);
+        double[] p;
+        double[] xk ;
+        p = function.findGradient(x, -1);
         do {
-            x = xk;
-            y = yk;
+            q++;
             k++;
-            lambda = findMin(-10, 10, epsilon, x, y);
-            xk = x + lambda * px;
-            yk = y + lambda * py;
-
+            lambda = findMin(-10,10, function, epsilon, x);
+            xk = reducedAddVectors(x, p, lambda);
+            //System.out.println(Arrays.toString(xk));
             //System.out.println(k + ")  f(" + xk + ", " + yk + ") = " + f(xk, yk));
             //System.out.print(xk + ", ");
             //System.out.print(yk + ", ");
-
+            g1 = function.dfNormalize(xk);
+            //System.out.println(g1);
             if (k == n) {
                 k = 0;
-                px = -Gradient.f_dx(xk, yk);
-                py = -Gradient.f_dy(xk, yk);
+                p = function.findGradient(xk, -1);
             } else {
-                double g = Gradient.df_normalize(x, y);
-                double g1 = Gradient.df_normalize(xk, yk);
+                double g = function.dfNormalize(x);
                 beta = g1 * g1 / g / g;
-                px = -Gradient.f_dx(xk, yk) + beta * px;
-                py = -Gradient.f_dy(xk, yk) + beta * py;
+                p = reducedAddVectors(function.findGradient(xk, -1), p, beta);
             }
-        } while (Gradient.df_normalize(xk, yk) > epsilon && k < 1000);
-        System.out.println("ANSWER : f( " + xk + ", " + yk + " ) = " + Gradient.f(xk, yk));
-        return Gradient.f(xk, yk);
+            x = Arrays.copyOf(xk, xk.length);
+        } while (g1 > epsilon && q < 10000);
+        System.out.println(Arrays.stream(xk).mapToObj(String::valueOf).collect(Collectors.joining(", ","ANSWER : f( "," ) = ")) + function.findFx(xk));
+    }
+
+    public double[] reducedAddVectors(double[] x1, double[] x2, double k2) {
+        double[] ans = new double[x1.length];
+        for (int i = 0; i < x1.length; i++) {
+            ans[i] = x1[i] + k2 * x2[i];
+        }
+        return ans;
     }
 }
