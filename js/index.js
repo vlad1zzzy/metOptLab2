@@ -1,52 +1,187 @@
-let size = 400, x = new Array(size), y = new Array(size), z = new Array(size);
+const EPS = 0.01;
+const plot = document.getElementById('plotly');
 
-for(let i = 0; i < size; i++) {
-    x[i] = 0.1 * i - 13;
-    y[i] = 0.1 * i - 13;
-    z[i] = new Array(size);
-}
+class QuadraticFunction {
+    constructor(a, b, c, func) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        this.func = func;
+    }
 
-for(let i = 0; i < size; i++) {
-    for(let j = 0; j < size; j++) {
-        z[j][i] = 2 * x[i] * x[i] + 3 * y[j] * y[j] + 5 * x[i] - 4 * y[j];
+    findFdkX(k, x) {
+        let ans = this.reducedMultiplyVectors(this.a[k], x);
+        ans += this.a[k][k] * x[k];
+        ans += this.b[k];
+        return ans;
+    }
+
+    findFx(x) {
+        let ans = 0;
+        for (let i = 0; i < this.a.length; i++) {
+            for (let j = i; j < this.a.length; j++) {
+                ans += this.a[i][j] * x[i] * x[j];
+            }
+        }
+        ans += this.reducedMultiplyVectors(this.b, x);
+        ans += this.c;
+        return ans;
+    }
+
+    findG(x, lambda) {
+        const newX = new Array(this.a.length);
+        for (let i = 0; i < this.a.length; i++) {
+            newX[i] = x[i] - lambda * this.findFdkX(i, x);
+        }
+        return this.findFx(newX);
+    }
+
+    findGradient(x, k) {
+        const ans = new Array(this.a.length);
+        for (let i = 0; i < this.a.length; i++) {
+            ans[i] = k * this.findFdkX(i, x);
+        }
+        return ans;
+    }
+
+    dfNormalize(x) {
+        const gradient = this.findGradient(x, 1);
+        return Math.sqrt(this.reducedMultiplyVectors(gradient, gradient));
+    }
+
+    reducedAddVectors(x1, x2, k2) {
+        const ans = new Array(x1.length);
+        for (let i = 0; i < x1.length; i++) {
+            ans[i] = x1[i] + k2 * x2[i];
+        }
+        return ans;
+    }
+
+    reducedMultiplyVectors(x1, x2) {
+        let ans = 0;
+        for (let i = 0; i < x1.length; i++) {
+            ans += x1[i] * x2[i];
+        }
+        return ans;
+    }
+
+    findMin(a, b, eps, x) {
+        let s = 0.00000001;
+        let x1, x2, f1, f2;
+        if (s > eps) {
+            s = eps;
+        }
+        do {
+            x1 = (a + b - s) / 2;
+            x2 = (a + b + s) / 2;
+            f1 = this.findG(x, x1);
+            f2 = this.findG(x, x2);
+            if (f1 <= f2) {
+                b = x2;
+            } else {
+                a = x1;
+            }
+        } while ((b - a) / 2 >= eps);
+        return (a + b) / 2;
     }
 }
 
-let trace1 = {
-    x: [24.575424232048235, 2.2634808835458315, -0.3538307718640712,
-        -1.12807853907119, -1.2189019906026903, -1.245769197804767,
-        -1.2489182842760236, -1.24985085474682, -1.2499576796702325],
-    y: [-10.995178167158642, 4.117744215067361, 0.2615062886906885,
-        0.7865653536976266, 0.6525904262243737, 0.6708322337830619,
-        0.6661814381019975, 0.6668089271284128, 0.666656086565874],
-    mode: 'line',
-    marker: {
-        color: 'rgb(219, 64, 82)',
-        size: 3
-    }
-};
+const quad = new QuadraticFunction([[4, 0], [0, 1]], [4, -6], 10,
+    (x, y) => (4 * x * x) + (4 * x) + (y * y) + (-6 * y) + 10);
 
-let trace2 = {
-    z: z,
-    x: x,
-    y: y,
-    type: 'contour',
-    colorscale: 'Jet',
-    contours: {
-        coloring: 'lines',
-        start: 0,
-        end: 1000,
-        size: 50
-    }
+const data = gradientConjugate([10, 10], quad, EPS, -10, 10, 2);
+const dataX = data.map(el => el[0]);
+const dataY = data.map(el => el[1]);
+
+drawGradient(dataX, dataY, quad.func)
+
+function gradientGreatDescent(xk, quadFunc, epsilon, a, b) {
+    let k = 0, lambda, x;
+    const data = [xk]
+    do {
+        x = [...xk];
+        lambda = quadFunc.findMin(a, b, epsilon, x);
+        xk = quadFunc.reducedAddVectors(x, quadFunc.findGradient(x, -1), lambda);
+
+        data.push(xk);
+        k++;
+    } while (quadFunc.dfNormalize(xk) > epsilon && k < 1000);
+    return data;
 }
 
-let data = [ trace1, trace2 ];
+function gradientConjugate(xk,  quadFunc,  epsilon,  a,  b,  n) {
+    let k = 0, q = 0, lambda, beta, g1, x, p = quadFunc.findGradient(xk, -1);
+    const data = [xk]
+    do {
+        k++;
+        x = [...xk];
+        lambda = quadFunc.findMin(a,b, epsilon, x);
+        xk = quadFunc.reducedAddVectors(x, p, lambda);
+        g1 = quadFunc.dfNormalize(xk);
 
-let layout = {
-    title: "Gradient descent",
-    showlegend: false,
-    hovermode: 'closest',
-    bargap: 0,
-};
+        data.push(xk);
+        if (k === n) {
+            k = 0;
+            p = quadFunc.findGradient(xk, -1);
+        } else {
+            let g = quadFunc.dfNormalize(x);
+            beta = g1 * g1 / g / g;
+            p = quadFunc.reducedAddVectors(quadFunc.findGradient(xk, -1), p, beta);
+        }
+        q++;
+    } while (g1 > epsilon);
+    return data;
+}
 
-Plotly.newPlot('plotly', data, layout);
+
+function drawGradient(x, y, func) {
+    const xAns = Math.round(x[x.length - 1]);
+    const yAns = Math.round(y[y.length - 1]);
+    const size = 300, x_lvl = new Array(size), y_lvl = new Array(size), z_lvl = new Array(size);
+    for(let i = 0; i < size; i++) {
+        x_lvl[i] = 0.1 * i - 10 + xAns;
+        y_lvl[i] = 0.1 * i - 10 + yAns;
+        z_lvl[i] = new Array(size);
+    }
+
+    for(let i = 0; i < size; i++) {
+        for(let j = 0; j < size; j++) {
+            z_lvl[j][i] = func(x_lvl[i], y_lvl[j]);
+        }
+    }
+
+    let trace1 = {
+        x: x,
+        y: y,
+        mode: 'line',
+        marker: {
+            color: 'rgb(219, 64, 82)',
+            size: 3
+        }
+    };
+
+    let trace2 = {
+        x: x_lvl,
+        y: y_lvl,
+        z: z_lvl,
+        type: 'contour',
+        colorscale: 'Jet',
+        contours: {
+            coloring: 'lines',
+            start: 0,
+            end: 100,
+            size: 5
+        }
+    }
+
+    let data = [ trace1, trace2 ];
+
+    let layout = {
+        title: "Gradient descent",
+        showlegend: false,
+        hovermode: 'closest',
+        bargap: 0,
+    };
+
+    Plotly.newPlot(plot, data, layout);
+}
