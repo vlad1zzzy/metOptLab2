@@ -8,7 +8,6 @@ public class ConstantStepGradient {
         double[] x;
         do {
             x = Arrays.copyOf(xk, xk.length);
-            //lambda = function.findMin(a,b, epsilon, x);
             xk = function.reducedAddVectors(x, function.findGradient(x, -1), lambda);
 
             //System.out.println(k + ") " + Arrays.toString(xk));
