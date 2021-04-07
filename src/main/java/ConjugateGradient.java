@@ -5,12 +5,17 @@ public class ConjugateGradient {
 
     public static double gradient(double[] xk, QuadraticFunction function, double epsilon, int a, int b, int n) {
         int k = 0;
+        int q = 0;
         double lambda, beta, g1;
         double[] x, p = function.findGradient(xk, -1);
         do {
             k++;
             x = xk;
-            lambda = function.findMin(a,b, epsilon, x);
+            lambda = function.findMin(a, b, x);
+            /*if (q < 10) {
+                System.out.println(lambda);
+                q++;
+            }*/
             xk = function.reducedAddVectors(x, p, lambda);
 
             //System.out.println(q + ") " +Arrays.toString(xk));
@@ -26,7 +31,7 @@ public class ConjugateGradient {
             }
         } while (g1 > epsilon);
         System.out.println(Arrays.stream(xk).mapToObj(String::valueOf)
-                .collect(Collectors.joining(", ","ANSWER : f( "," ) = ")) + function.findFx(xk));
+                .collect(Collectors.joining(", ", "ANSWER : f( ", " ) = ")) + function.findFx(xk));
         return function.findFx(xk);
     }
 }

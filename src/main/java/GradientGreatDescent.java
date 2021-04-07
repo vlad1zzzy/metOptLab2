@@ -5,7 +5,8 @@ public class GradientGreatDescent {
 
     public static double gradient(double[] xk, QuadraticFunction function, double epsilon, int a, int b) {
         return ConjugateGradient.gradient(xk, function, epsilon, a, b, 1);
-        /*int k = 0;
+        /*
+        int k = 0;
         double lambda;
         double[] x;
         do {
