@@ -7,10 +7,8 @@ public class Gradient {
     public static double c = 10;
 
     public static void main(String[] args) {
-        GradientGreatDescent greatDescent = new GradientGreatDescent();
-        ConjugateGradient conjugateGradient = new ConjugateGradient();
         QuadraticFunction function = new QuadraticFunction(a, b, c);
-        greatDescent.gradient(new double[]{10, 10}, function, EPS, -10, 10);
-        conjugateGradient.gradient(new double[]{10, 10}, function, EPS, -10, 10, 2);
+        GradientGreatDescent.gradient(new double[]{10, 10}, function, EPS, -10, 10);
+        ConjugateGradient.gradient(new double[]{10, 10}, function, EPS, -10, 10, 2);
     }
 }

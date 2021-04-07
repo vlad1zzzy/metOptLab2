@@ -3,7 +3,7 @@ import java.util.stream.Collectors;
 
 public class ConjugateGradient {
 
-    public void gradient(double[] xk, QuadraticFunction function, double epsilon, int a, int b, int n) {
+    public static double gradient(double[] xk, QuadraticFunction function, double epsilon, int a, int b, int n) {
         int k = 0, q = 0;
         double lambda, beta, g1;
         double[] x, p = function.findGradient(xk, -1);
@@ -28,5 +28,6 @@ public class ConjugateGradient {
         } while (g1 > epsilon);
         System.out.println(Arrays.stream(xk).mapToObj(String::valueOf)
                 .collect(Collectors.joining(", ","ANSWER : f( "," ) = ")) + function.findFx(xk));
+        return function.findFx(xk);
     }
 }
