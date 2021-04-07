@@ -1,17 +1,39 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class Gradient {
-    public static double EPS = 0.0001;
+    public static double EPS = 0.01;
 
     public static void main(String[] args) {
-        QuadraticFunction function1 = new QuadraticFunction(new double[][]{{64, 126}, {126, 64}}, new double[]{-10, 30}, 13);
-        QuadraticFunction function2 = new QuadraticFunction(new double[][]{{254, 506}, {506, 254}}, new double[]{50, 130}, -111);
-        QuadraticFunction function3 = new QuadraticFunction(new double[][]{{211, -420}, {-420, 211}}, new double[]{-192, 50}, -25);
-        QuadraticFunction function = function3;
-        for (int a = 100; a <= 1000000; a *= 10) {
-            GradientGreatDescent.gradient(new double[]{10, 10}, function, EPS, -a, a);
-            ConjugateGradient.gradient(new double[]{10, 10}, function, EPS, -a, a, 2);
-            ConstantStepGradient.gradient(new double[]{10, 10}, function, EPS, -a, a);
-            System.out.println();
+        int border = 10;
+        double minX = 0, maxX = 100;
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            int n = 150;
+            double[][] a = new double[n][n];
+            double[] b = new double[n];
+            double c = 0;
+            for (int j = 0; j < n; j++) {
+                b[j] = minX + (maxX - minX) * random.nextDouble();
+                a[j][j] = minX + (maxX - minX) * random.nextDouble();
+                /*for (int l = j; l < n; l++) {
+                    a[j][l] = minX + (maxX - minX) * random.nextDouble();
+                    a[l][j] = a[j][l];
+                }*/
+            }
+            QuadraticFunction function = new QuadraticFunction(a, b, c);
+            double[] x0 = new double[function.a.length];
+            Arrays.fill(x0, 10);
+            System.out.println("first");
+            GradientGreatDescent.gradient(x0, function, EPS, -border, border);
+            System.out.println("second");
+            ConjugateGradient.gradient(x0, function, EPS, -border, border, 10);
+            System.out.println("Third");
+            ConstantStepGradient.gradient(x0, function, EPS, -border, border);
         }
+        System.out.println();
+
     }
 }
