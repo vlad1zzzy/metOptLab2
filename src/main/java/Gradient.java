@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class Gradient {
@@ -8,7 +6,7 @@ public class Gradient {
 
     public static void main(String[] args) {
         int border = 10;
-        double minX = 0, maxX = 100;
+        double minX = 0, maxX = 10;
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             int n = 150;
@@ -27,13 +25,12 @@ public class Gradient {
             double[] x0 = new double[function.a.length];
             Arrays.fill(x0, 10);
             System.out.println("first");
-            GradientGreatDescent.gradient(x0, function, EPS, -border, border);
+            StepGradient.gradient(x0, function, EPS, -border, border);
             System.out.println("second");
-            ConjugateGradient.gradient(x0, function, EPS, -border, border, 10);
+            GreatDescentGradient.gradient(x0, function, EPS, -border, border);
             System.out.println("Third");
-            ConstantStepGradient.gradient(x0, function, EPS, -border, border);
+            ConjugateGradient.gradient(x0, function, EPS, -border, border, 10);
+            System.out.println();
         }
-        System.out.println();
-
     }
 }
