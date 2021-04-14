@@ -1,8 +1,5 @@
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 public class StepGradient {
-    public static Answer gradient(double[] xk, QuadraticFunction function, MinimisationMethod method,  double epsilon, int a, int b) {
+    public static Answer gradient(double[] xk, QuadraticFunction function, MinimisationMethod method, double epsilon, int a, int b) {
         int k = 0;
         double lambda = function.findMin(method, xk, a, b, epsilon);
         double[] x;

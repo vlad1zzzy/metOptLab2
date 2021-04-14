@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 public class ConjugateGradient {
 
     public static Answer gradient(double[] xk, QuadraticFunction function, MinimisationMethod method, double epsilon, int a, int b, int n) {

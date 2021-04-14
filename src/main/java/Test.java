@@ -22,8 +22,5 @@ public class Test {
         double[] b = {2, 4};
         double c = 2;
 
-        QuadraticFunction notDiagonalised = new QuadraticFunctionNotDiagonalised(a, b, c);
-        QuadraticFunction diagonalised = new QuadraticFunctionDiagonalised(ad, b, c);
-
     }
 }

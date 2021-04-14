@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class QuadraticFunctionDiagonalised extends AbstractQuadraticFunction {
     final private double[] a;
     final private double[] b;
@@ -10,6 +8,7 @@ public class QuadraticFunctionDiagonalised extends AbstractQuadraticFunction {
         this.b = b;
         this.c = c;
     }
+
 
     @Override
     public double findFdkX(int k, double[] x) {
@@ -30,7 +29,7 @@ public class QuadraticFunctionDiagonalised extends AbstractQuadraticFunction {
     }
 
     @Override
-    public int getDimension(){
+    public int getDimension() {
         return a.length;
     }
 
