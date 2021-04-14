@@ -11,7 +11,12 @@ public class QuadraticFunctionDiagonalised extends AbstractQuadraticFunction {
 
     @Override
     public double findFdkX(int k, double[] x) {
-        return 2 * a[k] * x[k] + b[k] * x[k];
+        return 2 * a[k] * x[k] + b[k];
+    }
+
+    @Override
+    public double[] multiplyVector(double[] p) {
+        return new double[0];
     }
 
     @Override
