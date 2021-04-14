@@ -9,7 +9,6 @@ public abstract class AbstractQuadraticFunction implements QuadraticFunction {
     }
 
 
-
     @Override
     public double dfNormalize(double[] x) {
         double[] gradient = findGradient(x, 1);
@@ -40,6 +39,7 @@ public abstract class AbstractQuadraticFunction implements QuadraticFunction {
         }
         return findFx(newX);
     }
+
     @Override
     public double findMin(double a, double b, double[] x) {
         double eps = 0.000001;

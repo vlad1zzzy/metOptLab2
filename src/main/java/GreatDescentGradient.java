@@ -1,4 +1,3 @@
-
 public class GreatDescentGradient {
 
     public static double gradient(double[] xk, QuadraticFunction function, double epsilon, int a, int b) {
