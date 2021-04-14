@@ -9,5 +9,7 @@ public interface QuadraticFunction {
 
     double[] reducedAddVectors(double[] x1, double[] x2, double k2);
 
+    double findMin(double a, double b, double[] x);
+
     int getDimension();
     }
