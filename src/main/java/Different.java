@@ -5,8 +5,8 @@ public class Different {
     public static void main(String[] args) {
         List<QuadraticFunction> quadraticFunctionList = List.of(
                 new QuadraticFunctionNotDiagonalised(new double[][]{{64, 126}, {126, 64}}, new double[]{-10, 30}, 13),
-                new QuadraticFunctionNotDiagonalised(new double[][]{{24, 56}, {56, 24}}, new double[]{5, 13}, -11),
-                new QuadraticFunctionNotDiagonalised(new double[][]{{211, -420}, {-420, 211}}, new double[]{-192, 50}, -25));
+                new QuadraticFunctionNotDiagonalised(new double[][]{{24, 6}, {6, 14}}, new double[]{-5, 10}, -11),
+                new QuadraticFunctionNotDiagonalised(new double[][]{{21, -42}, {-420, 211}}, new double[]{-192, 50}, -25));
         final double EPS = 0.0001;
         final int border = 100;
         double[] x0 = new double[2];
