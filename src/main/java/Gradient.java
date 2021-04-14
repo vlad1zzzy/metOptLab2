@@ -10,7 +10,7 @@ public class Gradient {
         double minX = 0, maxX = 3;
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
-            int n = 100;
+            int n = 10;
             double[][] a = new double[n][n];
             double[] b = new double[n];
             double c = 0;

@@ -11,7 +11,7 @@ public class ConjugateGradient {
         do {
             k++;
             x = xk;
-            lambda = function.findMin(a, b, x);
+            lambda = function.dichotomy(x, a, b, epsilon);
             xk = function.reducedAddVectors(x, p, lambda);
             g1 = function.dfNormalize(xk);
             if (k == n) {

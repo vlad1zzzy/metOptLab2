@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 public class StepGradient {
     public static double gradient(double[] xk, QuadraticFunction function, double epsilon, int a, int b) {
         int k = 0;
-        double lambda = function.findMin(a, b, xk);
+        double lambda = function.dichotomy(xk, a, b, epsilon);
         double[] x;
         do {
             x = xk;
