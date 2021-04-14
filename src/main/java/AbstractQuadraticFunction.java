@@ -27,7 +27,8 @@ public abstract class AbstractQuadraticFunction implements QuadraticFunction {
         return ans;
     }
 
-    protected double reducedMultiplyVectors(double[] x1, double[] x2) {
+    @Override
+    public double reducedMultiplyVectors(double[] x1, double[] x2) {
         double ans = 0;
         for (int i = 0; i < x1.length; i++) {
             ans += x1[i] * x2[i];
@@ -44,7 +45,18 @@ public abstract class AbstractQuadraticFunction implements QuadraticFunction {
     }
 
     @Override
-    public double dichotomy(double[] x, double a, double b, double eps) {
+    public double findMin(MinimisationMethod method, double[] x, double a, double b, double eps) {
+        return switch (method) {
+            case BRENT -> brent(x, a, b, eps);
+            case PARABOLA -> parabola(x, a, b, eps);
+            case DICHOTOMY -> dichotomy(x, a, b, eps);
+            case FIBONACCI -> fibonacci(x, a, b, eps);
+            case GOLDEN_SECTION -> goldenSection(x, a, b, eps);
+        };
+    }
+
+
+    private double dichotomy(double[] x, double a, double b, double eps) {
         double s = 0.00000001;
         double x1, x2, f1, f2;
         do {
@@ -61,7 +73,7 @@ public abstract class AbstractQuadraticFunction implements QuadraticFunction {
         return (a + b) / 2;
     }
 
-    public static final int[] fibs = new int[]{
+    private static final int[] fibs = new int[]{
             1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597,
             2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418,
             317811, 514229, 832040, 1346269, 2178309, 3524578, 5702887, 9227465,
@@ -69,8 +81,7 @@ public abstract class AbstractQuadraticFunction implements QuadraticFunction {
             433494437, 701408733, 1134903170, 1836311903
     };
 
-    @Override
-    public double fibonacci(double[] x, double a, double b, double eps) {
+    private double fibonacci(double[] x, double a, double b, double eps) {
         double anchor = (b - a) / eps;
         int n = -1;
         for (int i = 2; i < fibs.length; i++) {
@@ -107,8 +118,7 @@ public abstract class AbstractQuadraticFunction implements QuadraticFunction {
         return (a + b) / 2;
     }
 
-    @Override
-    public double goldenSection(double[] x, double a, double b, double eps) {
+    private double goldenSection(double[] x, double a, double b, double eps) {
         final double phi = (1 + sqrt(5)) / 2;
         final double resPhi = 2 - phi;
         double x1 = a + resPhi * (b - a);
@@ -133,8 +143,7 @@ public abstract class AbstractQuadraticFunction implements QuadraticFunction {
         return (x1 + x2) / 2;
     }
 
-    @Override
-    public double parabola(double[] x, double a, double b, double eps) {
+    private double parabola(double[] x, double a, double b, double eps) {
         double x1 = a, x2, x3 = b;
         double f1 = findG(x, x1), f2, f3 = findG(x, x3);
         x2 = f1 < f3 ? a + eps : b - eps;
@@ -174,8 +183,7 @@ public abstract class AbstractQuadraticFunction implements QuadraticFunction {
         return X;
     }
 
-    @Override
-    public double brent(double[] x, double a, double c, double eps) {
+    private double brent(double[] x, double a, double c, double eps) {
         final double phi = (3 - sqrt(5)) / 2;
         double x2, x1, x3, xi = 0, f2, f1, f3, fi, d, e, g, tol;
         boolean accepted;

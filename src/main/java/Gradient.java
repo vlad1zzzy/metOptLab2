@@ -22,11 +22,11 @@ public class Gradient {
             double[] x0 = new double[function.getDimension()];
             Arrays.fill(x0, 10);
             System.out.println("first");
-            StepGradient.gradient(x0, function, EPS, -border, border);
+            StepGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -border, border);
             System.out.println("second");
-            GreatDescentGradient.gradient(x0, function, EPS, -border, border);
+            GreatDescentGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -border, border);
             System.out.println("Third");
-            ConjugateGradient.gradient(x0, function, EPS, -border, border, 10);
+            ConjugateGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -border, border, 10);
             System.out.println();
         }
     }

@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class QuadraticFunctionDiagonalised extends AbstractQuadraticFunction {
     final private double[] a;
     final private double[] b;
