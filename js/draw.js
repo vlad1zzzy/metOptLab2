@@ -3,10 +3,10 @@ const plot = document.getElementById('plotly');
 export function drawGradient(x, y, func) {
     const xAns = Math.round(x[x.length - 1]);
     const yAns = Math.round(y[y.length - 1]);
-    const size = 300, x_lvl = new Array(size), y_lvl = new Array(size), z_lvl = new Array(size);
+    const size = 500, x_lvl = new Array(size), y_lvl = new Array(size), z_lvl = new Array(size);
     for (let i = 0; i < size; i++) {
-        x_lvl[i] = 0.1 * i - 10 + xAns;
-        y_lvl[i] = 0.1 * i - 10 + yAns;
+        x_lvl[i] = 0.1 * i - 20 + xAns;
+        y_lvl[i] = 0.1 * i - 20 + yAns;
         z_lvl[i] = new Array(size);
     }
 
@@ -35,8 +35,8 @@ export function drawGradient(x, y, func) {
         contours: {
             coloring: 'lines',
             start: 0,
-            end: 100,
-            size: 5
+            end: 10000,
+            size: 500
         }
     }
 

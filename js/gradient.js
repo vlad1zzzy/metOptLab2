@@ -24,7 +24,7 @@ export function gradient(xk, quadFunc, epsilon, a, b) {
 export function gradientGreatDescent(xk, quadFunc, epsilon, a, b) {
     return gradientConjugate(xk, quadFunc, epsilon, a, b, 1);
 }
-export function gradientConjugate(xk, quadFunc, epsilon, a, b, n) {
+export function gradientConjugate(xk, quadFunc, epsilon, a, b, n = 2) {
     let k = 0;
     let lambda, beta, g1;
     let x, p = quadFunc.findGradient(xk, -1);
