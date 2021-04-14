@@ -12,8 +12,12 @@ public class Answer {
         this.numberOfIterations = numberOfIterations;
     }
 
-    public void print(){
+    public void print() {
         System.out.println(Arrays.stream(vector).mapToObj(String::valueOf)
                 .collect(Collectors.joining(", ", numberOfIterations + ") ANSWER : f( ", " ) = ")) + value);
+    }
+
+    public void printAns() {
+        System.out.println("Iterations: " + this.numberOfIterations + "  , f = " + this.value);
     }
 }

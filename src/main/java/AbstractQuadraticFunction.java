@@ -57,7 +57,7 @@ public abstract class AbstractQuadraticFunction implements QuadraticFunction {
 
 
     private double dichotomy(double[] x, double a, double b, double eps) {
-        double s = 0.00000001;
+        double s = eps / 2;
         double x1, x2, f1, f2;
         do {
             x1 = (a + b - s) / 2;

@@ -16,7 +16,6 @@ public class StepGradient {
             }
             k++;
         } while (function.dfNormalize(xk) > epsilon && k < 1000);
-
         return new Answer(xk, function.findFx(xk), k);
     }
 }

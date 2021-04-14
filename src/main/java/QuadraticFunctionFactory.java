@@ -11,6 +11,7 @@ public class QuadraticFunctionFactory {
             b[j] = minX + (maxX - minX) * random.nextDouble();
             a[j] = minX + (maxX - minX) * random.nextDouble();
         }
+        a[n - 1] = maxX;
         return new QuadraticFunctionDiagonalised(a, b, c);
     }
 
