@@ -3,7 +3,7 @@ import java.util.stream.Collectors;
 
 public class GradientGreatDescent {
 
-    public static void gradient(double[] xk, QuadraticFunction function, double epsilon, int a, int b) {
+    public static void gradient(double[] xk, QuadraticFunctionNotDiagonalised function, double epsilon, int a, int b) {
 
         int k = 0;
         double lambda;

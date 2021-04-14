@@ -3,7 +3,7 @@ import java.util.stream.Collectors;
 
 public class ConjugateGradient {
 
-    public static double gradient(double[] xk, QuadraticFunction function, double epsilon, int a, int b, int n) {
+    public static double gradient(double[] xk, QuadraticFunctionNotDiagonalised function, double epsilon, int a, int b, int n) {
         int k = 0;
         int q = 0;
         double lambda, beta, g1;

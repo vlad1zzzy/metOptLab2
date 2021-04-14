@@ -1,12 +1,11 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class Gradient {
     public static double EPS = 0.01;
 
     public static void main(String[] args) {
+
         int border = 10;
         double minX = 0, maxX = 100;
         Random random = new Random();
@@ -23,8 +22,8 @@ public class Gradient {
                     a[l][j] = a[j][l];
                 }*/
             }
-            QuadraticFunction function = new QuadraticFunction(a, b, c);
-            double[] x0 = new double[function.a.length];
+            QuadraticFunctionNotDiagonalised function = new QuadraticFunctionNotDiagonalised(a, b, c);
+            double[] x0 = new double[function.getDimension()];
             Arrays.fill(x0, 10);
             System.out.println("first");
             GradientGreatDescent.gradient(x0, function, EPS, -border, border);

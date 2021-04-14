@@ -20,10 +20,13 @@ public class Test {
     };
 
     public static void main(String[] args) {
-        int[] a = new int[]{1,2,3};
-        int[] b = a;
-        b[0] = 2;
-        System.out.println(Arrays.toString(a));
-        System.out.println(Arrays.toString(b));
+        double[][] a = {{1, 0}, {0, 4}};
+        double[] ad = {1, 0};
+        double[] b = {2, 4};
+        double c = 2;
+
+        QuadraticFunction notDiagonalised = new QuadraticFunctionNotDiagonalised(a, b, c);
+        QuadraticFunction diagonalised = new QuadraticFunctionDiagonalised(ad, b, c);
+
     }
 }
