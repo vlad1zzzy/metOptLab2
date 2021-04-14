@@ -12,14 +12,7 @@ public class ConjugateGradient {
             k++;
             x = xk;
             lambda = function.findMin(a, b, x);
-            /*if (q < 10) {
-                System.out.println(lambda);
-                q++;
-            }*/
             xk = function.reducedAddVectors(x, p, lambda);
-
-            //System.out.println(q + ") " +Arrays.toString(xk));
-
             g1 = function.dfNormalize(xk);
             if (k == n) {
                 k = 0;
@@ -29,9 +22,10 @@ public class ConjugateGradient {
                 beta = g1 * g1 / g / g;
                 p = function.reducedAddVectors(function.findGradient(xk, -1), p, beta);
             }
-        } while (g1 > epsilon);
+            q++;
+        } while (g1 > epsilon && q < 1000);
         System.out.println(Arrays.stream(xk).mapToObj(String::valueOf)
-                .collect(Collectors.joining(", ", "ANSWER : f( ", " ) = ")) + function.findFx(xk));
+                .collect(Collectors.joining(", ", q + ") ANSWER : f( ", " ) = ")) + function.findFx(xk));
         return function.findFx(xk);
     }
 }

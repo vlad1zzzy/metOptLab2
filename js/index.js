@@ -95,27 +95,33 @@ const dataY = data.map(el => el[1]);
 
 drawGradient(dataX, dataY, quad.func)
 
-function gradientGreatDescent(xk, quadFunc, epsilon, a, b) {
-    let k = 0, lambda, x;
-    const data = [xk]
+function gradient(xk, quadFunc, epsilon, a, b) {
+    let lambda = quadFunc.findMin(a, b, epsilon, x);
+    let x;
     do {
-        x = [...xk];
-        lambda = quadFunc.findMin(a, b, epsilon, x);
-        xk = quadFunc.reducedAddVectors(x, quadFunc.findGradient(x, -1), lambda);
-
-        data.push(xk);
-        k++;
-    } while (quadFunc.dfNormalize(xk) > epsilon && k < 1000);
-    return data;
+        x = quadFunc.reducedAddVectors(xk, quadFunc.findGradient(xk, -1), lambda);
+        if (quadFunc.findFx(xk) < quadFunc.findFx(x)) {
+            xk = x;
+        } else {
+            lambda /= 2;
+        }
+    } while (quadFunc.dfNormalize(xk) > epsilon);
+    System.out.println(Arrays.stream(xk).mapToObj(String::valueOf)
+        .collect(Collectors.joining(", ", "ANSWER : f( ", " ) = ")) + quadFunc.findFx(xk));
+    return quadFunc.findFx(xk);
 }
 
-function gradientConjugate(xk,  quadFunc,  epsilon,  a,  b,  n) {
+function gradientGreatDescent(xk, quadFunc, epsilon, a, b) {
+    return gradientConjugate(xk, quadFunc, epsilon, a, b, 1);
+}
+
+function gradientConjugate(xk, quadFunc, epsilon, a, b, n) {
     let k = 0, q = 0, lambda, beta, g1, x, p = quadFunc.findGradient(xk, -1);
     const data = [xk]
     do {
         k++;
         x = [...xk];
-        lambda = quadFunc.findMin(a,b, epsilon, x);
+        lambda = quadFunc.findMin(a, b, epsilon, x);
         xk = quadFunc.reducedAddVectors(x, p, lambda);
         g1 = quadFunc.dfNormalize(xk);
 
@@ -138,14 +144,14 @@ function drawGradient(x, y, func) {
     const xAns = Math.round(x[x.length - 1]);
     const yAns = Math.round(y[y.length - 1]);
     const size = 300, x_lvl = new Array(size), y_lvl = new Array(size), z_lvl = new Array(size);
-    for(let i = 0; i < size; i++) {
+    for (let i = 0; i < size; i++) {
         x_lvl[i] = 0.1 * i - 10 + xAns;
         y_lvl[i] = 0.1 * i - 10 + yAns;
         z_lvl[i] = new Array(size);
     }
 
-    for(let i = 0; i < size; i++) {
-        for(let j = 0; j < size; j++) {
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
             z_lvl[j][i] = func(x_lvl[i], y_lvl[j]);
         }
     }
@@ -174,7 +180,7 @@ function drawGradient(x, y, func) {
         }
     }
 
-    let data = [ trace1, trace2 ];
+    let data = [trace1, trace2];
 
     let layout = {
         title: "Gradient descent",
