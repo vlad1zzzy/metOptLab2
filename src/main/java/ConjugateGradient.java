@@ -11,7 +11,7 @@ public class ConjugateGradient {
         do {
             k++;
             x = xk;
-            lambda = function.dichotomy(x, a, b, epsilon);
+            lambda = function.parabola(x, a, b, epsilon);
             xk = function.reducedAddVectors(x, p, lambda);
             g1 = function.dfNormalize(xk);
             if (k == n) {
@@ -19,7 +19,7 @@ public class ConjugateGradient {
                 p = function.findGradient(xk, -1);
             } else {
                 double g = function.dfNormalize(x);
-                beta = g1 * g1 / g / g;
+                beta = g1 * g1 / (g * g);
                 p = function.reducedAddVectors(function.findGradient(xk, -1), p, beta);
             }
             q++;

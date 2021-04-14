@@ -15,11 +15,6 @@ public class QuadraticFunctionDiagonalised extends AbstractQuadraticFunction {
     }
 
     @Override
-    public double[] multiplyVector(double[] p) {
-        return new double[0];
-    }
-
-    @Override
     public double findFx(double[] x) {
         double ans = 0;
         double[] x2 = new double[x.length];
