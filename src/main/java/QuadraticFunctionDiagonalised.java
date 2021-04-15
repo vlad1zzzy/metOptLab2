@@ -12,14 +12,14 @@ public class QuadraticFunctionDiagonalised extends AbstractQuadraticFunction {
 
     @Override
     public double findFdkX(int k, double[] x) {
-        return a[k] * x[k] + b[k];
+        return  a[k] * x[k] + b[k];
     }
 
     @Override
     public double[] findAp(double[] p) {
-        double[] ans = new double[this.getDimension()];
-        for (int i = 0; i < this.getDimension(); i++) {
-            ans[i] = a[i]*p[i];
+        double[] ans = new double[getDimension()];
+        for (int i = 0; i < getDimension(); i++) {
+            ans[i] = a[i] * p[i] ;
         }
         return ans;
     }
@@ -31,7 +31,7 @@ public class QuadraticFunctionDiagonalised extends AbstractQuadraticFunction {
         for (int i = 0; i < x.length; i++) {
             x2[i] = x[i] * x[i];
         }
-        ans += reducedMultiplyVectors(a, x2) / 2;
+        ans += reducedMultiplyVectors(a, x2)/2;
         ans += reducedMultiplyVectors(b, x);
         ans += c;
         return ans;
