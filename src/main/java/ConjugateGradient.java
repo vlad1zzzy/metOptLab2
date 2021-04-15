@@ -2,23 +2,27 @@ public class ConjugateGradient {
 
     public static Answer gradient(double[] xk, QuadraticFunction function, MinimisationMethod method, double epsilon, int a, int b, int n) {
         int k = 0;
-        double lambda, beta, g1, g;
-        double[] x, p = function.findGradient(xk, -1);
-        g1 = function.dfNormalize(xk);
+        double lambda, beta, ng1 = 10;
+        double[] x, p = function.findGradient(xk, -1), g1, g;
+        g1 = function.findGradient(xk,1);
         do {
             k++;
             x = xk;
-            lambda = function.findMin(method, x, a, b, epsilon);
-            xk = function.reducedAddVectors(x, p, lambda);
             g = g1;
-            g1 = function.dfNormalize(xk);
+            double[] apk = function.findAp(p);
+            double f = function.reducedMultiplyVectors(apk, p);
+            double ng = Math.sqrt(function.reducedMultiplyVectors(g,g));
+            lambda =  ng*ng / f;
+            xk = function.reducedAddVectors(x, p, lambda);
+            g1 = function.reducedAddVectors(g, apk, lambda);
             if (k % n == 0) {
                 p = function.findGradient(xk, -1);
             } else {
-                beta = g1 * g1 / (g * g);
+                ng1 = Math.sqrt(function.reducedMultiplyVectors(g1,g1));
+                beta = ng1 * ng1 / (ng * ng);
                 p = function.reducedAddVectors(function.findGradient(xk, -1), p, beta);
             }
-        } while (g1 > epsilon && k < 10000);
+        } while (ng1 > epsilon && k < 10000);
         return new Answer(xk, function.findFx(xk), k);
     }
 }

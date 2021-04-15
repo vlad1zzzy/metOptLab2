@@ -18,6 +18,11 @@ public class QuadraticFunctionNotDiagonalised extends AbstractQuadraticFunction 
     }
 
     @Override
+    public double[] findAp(double[] p) {
+        return new double[0];
+    }
+
+    @Override
     public double findFx(double[] x) {
         double ans = 0;
         for (int i = 0; i < a.length; i++) {

@@ -3,8 +3,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Gradient {
-    public static double EPS = 0.001;
-    public static int BORDER = 100;
+    public static double EPS = 0.00001;
+    public static int BORDER = 10000;
 
     public static void main(String[] args) {
         //test1();
@@ -43,18 +43,19 @@ public class Gradient {
 
     public static void test3() {
 
-        int i = 10;
-        List<Integer> step = new ArrayList<>();
-        List<Integer> fastest = new ArrayList<>();
-        List<Integer> brent = new ArrayList<>();
-        double[] x0 = new double[i];
-        Arrays.fill(x0, 100000);
-        for (int j = 10; j < 1000; j += 10) {
-            QuadraticFunction function = QuadraticFunctionFactory.randomD(i, j);
-            addAns(function, x0, step, fastest, brent);
-        }
-        System.out.println(step + "\n" + fastest + "\n" + brent);
+        for (int i = 10; i < 100000; i *= 10) {
 
+            List<Integer> step = new ArrayList<>();
+            List<Integer> fastest = new ArrayList<>();
+            List<Integer> brent = new ArrayList<>();
+            double[] x0 = new double[i];
+            Arrays.fill(x0, 1000);
+            for (int j = 10; j < 10000; j += 100) {
+                QuadraticFunction function = QuadraticFunctionFactory.randomD(i, j);
+                addAns(function, x0, step, fastest, brent);
+            }
+            System.out.println(step + "\n" + fastest + "\n" + brent+"\n");
+        }
     }
 
     public static void printTest(QuadraticFunction function, double[] x0) {
@@ -75,10 +76,11 @@ public class Gradient {
     }
 
     public static void addAns(QuadraticFunction function, double[] x0, List<Integer> step, List<Integer> fastest, List<Integer> brent) {
-        Answer answer = StepGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -BORDER, BORDER);
-        step.add(answer.numberOfIterations);
-        answer = GreatDescentGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -BORDER, BORDER);
-        fastest.add(answer.numberOfIterations);
+        Answer answer;
+        //answer = StepGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -BORDER, BORDER);
+        //step.add(answer.numberOfIterations);
+        //answer = GreatDescentGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -BORDER, BORDER);
+        //fastest.add(answer.numberOfIterations);
         answer = ConjugateGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -BORDER, BORDER, function.getDimension());
         brent.add(answer.numberOfIterations);
     }

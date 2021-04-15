@@ -1,5 +1,7 @@
 public interface QuadraticFunction {
 
+    double[] findAp(double []p);
+
     double findFx(double[] x);
 
     double findFdkX(int k, double[] x);
