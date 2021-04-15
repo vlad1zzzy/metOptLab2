@@ -13,7 +13,7 @@ public class Gradient {
     }
 
     public static void test1() {
-        int n = 1000;
+        int n = 100;
         MinimisationMethod[] methods = new MinimisationMethod[]{
                 MinimisationMethod.DICHOTOMY,
                 MinimisationMethod.FIBONACCI,
@@ -43,12 +43,12 @@ public class Gradient {
 
     public static void test3() {
 
-        int i = 10;
+        int i = 100;
         List<Integer> step = new ArrayList<>();
         List<Integer> fastest = new ArrayList<>();
         List<Integer> brent = new ArrayList<>();
         double[] x0 = new double[i];
-        Arrays.fill(x0, 100000);
+        Arrays.fill(x0, 100);
         for (int j = 10; j < 1000; j += 10) {
             QuadraticFunction function = QuadraticFunctionFactory.randomD(i, j);
             addAns(function, x0, step, fastest, brent);

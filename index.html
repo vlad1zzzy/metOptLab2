@@ -18,9 +18,9 @@
     <div class="methods">
         <div class="methodsTitle">Выберите метод</div>
         <ul>
-            <li class="active">Метод градиентного спуска</li>
-            <li>Метод наискорейшего спуска</li>
-            <li>Метод сопряженных градиентов</li>
+            <li class="active" id="gradient">Метод градиентного спуска</li>
+            <li id="gradientGreatDescent">Метод наискорейшего спуска</li>
+            <li id="gradientConjugate">Метод сопряженных градиентов</li>
         </ul>
     </div>
 
@@ -40,6 +40,10 @@
         <div>Полученная&ensp;<strong>точка</strong>&ensp;локального минимума : <span id="dot-min">&ensp;-</span></div>
         <div>Значение&ensp;<strong>f(x, y)</strong>&ensp;в этой точке : <span id="func-min">&ensp;-</span></div>
     </div>
+
+    <div id='step'><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id='great'><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id='conjugate'><!-- Plotly chart will be drawn inside this DIV --></div>
 
 </div>
 <script src="js/index.js" type="module"></script>
