@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,25 +31,30 @@ public class Gradient {
 
     public static void test2() {
         List<QuadraticFunction> quadraticFunctionList = List.of(
-                new QuadraticFunctionNotDiagonalised(new double[][]{{64, 126}, {126, 64}}, new double[]{-10, 30}, 13),
                 new QuadraticFunctionNotDiagonalised(new double[][]{{24, 6}, {6, 14}}, new double[]{-5, 10}, -11),
+                new QuadraticFunctionNotDiagonalised(new double[][]{{64, 126}, {126, 64}}, new double[]{-10, 30}, 13),
                 new QuadraticFunctionNotDiagonalised(new double[][]{{35, -69}, {-69, 35}}, new double[]{-34, 25}, -24));
         double[] x0 = new double[2];
-        Arrays.fill(x0, 100);
+        Arrays.fill(x0, 10000);
         for (QuadraticFunction function : quadraticFunctionList) {
-           printTest(function, x0);
+            printTest(function, x0);
         }
     }
 
     public static void test3() {
-        for (int i = 10; i < 1000; i += 100) {
-            double[] x0 = new double[i];
-            Arrays.fill(x0, 100);
-            for (int j = 0; j < 100; j += 10) {
-                QuadraticFunction function = QuadraticFunctionFactory.randomD(i, j);
-                printTest(function, x0);
-            }
+
+        int i = 10;
+        List<Integer> step = new ArrayList<>();
+        List<Integer> fastest = new ArrayList<>();
+        List<Integer> brent = new ArrayList<>();
+        double[] x0 = new double[i];
+        Arrays.fill(x0, 100000);
+        for (int j = 10; j < 1000; j += 10) {
+            QuadraticFunction function = QuadraticFunctionFactory.randomD(i, j);
+            addAns(function, x0, step, fastest, brent);
         }
+        System.out.println(step + "\n" + fastest + "\n" + brent);
+
     }
 
     public static void printTest(QuadraticFunction function, double[] x0) {
@@ -66,5 +72,14 @@ public class Gradient {
         answer.printAns();
 
         System.out.println("\n");
+    }
+
+    public static void addAns(QuadraticFunction function, double[] x0, List<Integer> step, List<Integer> fastest, List<Integer> brent) {
+        Answer answer = StepGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -BORDER, BORDER);
+        step.add(answer.numberOfIterations);
+        answer = GreatDescentGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -BORDER, BORDER);
+        fastest.add(answer.numberOfIterations);
+        answer = ConjugateGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -BORDER, BORDER, function.getDimension());
+        brent.add(answer.numberOfIterations);
     }
 }
