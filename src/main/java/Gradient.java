@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Gradient {
-    public static double EPS = 0.001;
+    public static double EPS = 0.1;
     public static int BORDER = 100;
 
     public static void main(String[] args) {
@@ -42,8 +42,7 @@ public class Gradient {
     }
 
     public static void test3() {
-
-        int i = 100;
+        int i = 1000;
         List<Integer> step = new ArrayList<>();
         List<Integer> fastest = new ArrayList<>();
         List<Integer> brent = new ArrayList<>();

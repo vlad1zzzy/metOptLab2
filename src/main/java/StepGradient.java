@@ -1,20 +1,22 @@
 public class StepGradient {
     public static Answer gradient(double[] xk, QuadraticFunction function, MinimisationMethod method, double epsilon, int a, int b) {
         int k = 0;
-        double lambda0 = 0.1;
-        double lambda = lambda0;
+        double lambda = 1;
         double[] x;
-        while (function.dfNormalize(xk) > epsilon && k < 10000) {
-            x = function.reducedAddVectors(xk, function.findGradient(xk, -1), lambda);
-            while (function.findFx(x) - function.findFx(xk) > -lambda * 0.5 * function.dfNormalize(xk) * function.dfNormalize(xk)) {
+        do {
+            x = xk;
+            xk = function.reducedAddVectors(x, function.findGradient(x, -1), lambda);
+            while (function.findFx(xk) > function.findFx(x)) {
+                if (k > 10000) {
+                    return new Answer(x, function.findFx(x), k);
+                }
                 lambda /= 2;
-                x = function.reducedAddVectors(xk, function.findGradient(xk, -1), lambda);
+                xk = function.reducedAddVectors(x, function.findGradient(x, -1), lambda);
+                k++;
             }
-            x = function.reducedAddVectors(xk, function.findGradient(xk, -1), lambda);
-            xk = x;
-            lambda = lambda0;
             k++;
-        }
+        } while (function.dfNormalize(xk) > epsilon && k < 10000);
+
         return new Answer(xk, function.findFx(xk), k);
     }
 }
