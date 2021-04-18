@@ -31,7 +31,7 @@ public class QuadraticFunctionDiagonalised extends AbstractQuadraticFunction {
         for (int i = 0; i < x.length; i++) {
             x2[i] = x[i] * x[i];
         }
-        ans += reducedMultiplyVectors(a, x2)/2;
+        ans += reducedMultiplyVectors(a, x2) / 2;
         ans += reducedMultiplyVectors(b, x);
         ans += c;
         return ans;

@@ -21,10 +21,8 @@ public class QuadraticFunctionNotDiagonalised extends AbstractQuadraticFunction 
     public double[] findAp(double[] p) {
         double[] ans = new double[getDimension()];
         for (int i = 0; i < getDimension(); i++) {
+            ans[i] += a[i][i] * p[i];
             for (int j = 0; j < getDimension(); j++) {
-                if (i == j) {
-                    ans[i] += a[i][j] * p[j];
-                }
                 ans[i] += a[i][j] * p[j];
             }
         }
