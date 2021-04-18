@@ -16,7 +16,7 @@ public class ConjugateGradient {
             xk = function.reducedAddVectors(x, p, lambda);
             g1 = function.reducedAddVectors(g, apk, lambda);
             if (k % n == 0) {
-                p = function.findGradient(xk, -1);
+                g1 = function.findGradient(xk, -1);
             } else {
                 ng1 = Math.sqrt(function.reducedMultiplyVectors(g1, g1));
                 beta = ng1 * ng1 / (ng * ng);

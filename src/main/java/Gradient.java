@@ -8,8 +8,8 @@ public class Gradient {
 
     public static void main(String[] args) {
         //test1();
-        //test2();
-        test3();
+        test2();
+        //test3();
     }
 
     public static void test1() {
@@ -35,7 +35,7 @@ public class Gradient {
                 new QuadraticFunctionNotDiagonalised(new double[][]{{64, 126}, {126, 64}}, new double[]{-10, 30}, 13),
                 new QuadraticFunctionNotDiagonalised(new double[][]{{35, -69}, {-69, 35}}, new double[]{-34, 25}, -24));
         double[] x0 = new double[2];
-        Arrays.fill(x0, 10000);
+        Arrays.fill(x0, 20);
         for (QuadraticFunction function : quadraticFunctionList) {
             printTest(function, x0);
         }
