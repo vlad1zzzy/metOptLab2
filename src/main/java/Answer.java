@@ -18,6 +18,7 @@ public class Answer {
     }
 
     public void printAns() {
-        System.out.println("Iterations: " + this.numberOfIterations + "  , f = " + this.value);
+        System.out.println("Iterations: " + this.numberOfIterations + "  , f = " + this.value + ", xk = " + Arrays.stream(vector).mapToObj(String::valueOf)
+                .collect(Collectors.joining(", ")));
     }
 }

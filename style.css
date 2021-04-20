@@ -29,6 +29,16 @@ h1, h2, h3 {
     text-align: center;
 }
 
+.field {
+    margin: 3rem auto;
+    width: 80vw;
+    height: 80vh;
+}
+
+#plotly {
+    display: none;
+}
+
 .info > div {
     font-style: italic;
     text-align: center;
@@ -38,44 +48,22 @@ h1, h2, h3 {
     display: none;
 }
 
-.arrows {
-    margin-top: 15px;
-    text-align: center;
-}
-
-.arrows.disabled {
-    display: none;
-}
-
-.next,
-.prev {
-    background: none;
-    border: none;
-    margin: 0 10px;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.next.disabled,
-.prev.disabled {
-    opacity: .25;
-    pointer-events: none;
-}
-
-
-.methods .methodsTitle {
+.methods .methodsTitle,
+.functions .functionsTitle {
     margin: 1rem;
     text-align: center;
     font-size: 1.5rem;
 }
 
-.methods > ul {
+.methods > ul,
+.functions > ul {
     display: flex;
     justify-content: space-between;
     list-style-type: none;
 }
 
-.methods li {
+.methods li,
+.functions li {
     line-height: 2rem;
     border-radius: 1rem;
     text-align: center;
@@ -84,13 +72,15 @@ h1, h2, h3 {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-.methods .active {
+.methods .active,
+.functions .active {
     cursor: pointer;
     background-color: rgba(75, 192, 192, 1);
     color: bisque;
 }
 
-.methods li:hover {
+.methods li:hover,
+.functions li:hover {
     cursor: pointer;
     background-color: rgba(75, 192, 192, 1);
     color: bisque;
@@ -197,10 +187,4 @@ form {
 .result > div {
     display: flex;
     justify-content: center;
-}
-
-#plotly {
-    margin: 3rem auto;
-    width: 80vw;
-    height: 80vh;
 }

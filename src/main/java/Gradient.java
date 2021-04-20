@@ -8,12 +8,12 @@ public class Gradient {
 
     public static void main(String[] args) {
         //test1();
-        //test2();
-        test3();
+        test2();
+        //test3();
     }
 
     public static void test1() {
-        int n = 100;
+        int n = 10;
         MinimisationMethod[] methods = new MinimisationMethod[]{
                 MinimisationMethod.DICHOTOMY,
                 MinimisationMethod.FIBONACCI,
@@ -31,7 +31,7 @@ public class Gradient {
 
     public static void test2() {
         List<QuadraticFunction> quadraticFunctionList = List.of(
-                new QuadraticFunctionNotDiagonalised(new double[][]{{24, 0}, {0, 14}}, new double[]{-5, 10}, -11),
+                new QuadraticFunctionNotDiagonalised(new double[][]{{24, 6}, {6, 14}}, new double[]{-5, 10}, -11),
                 new QuadraticFunctionNotDiagonalised(new double[][]{{64, 126}, {126, 64}}, new double[]{-10, 30}, 13),
                 new QuadraticFunctionNotDiagonalised(new double[][]{{35, -69}, {-69, 35}}, new double[]{-34, 25}, -24));
         double[] x0 = new double[2];
@@ -42,7 +42,7 @@ public class Gradient {
     }
 
     public static void test3() {
-        int i = 100;
+        int i = 10;
         int size = 99;
         int n = 10;
         int[] step = new int[size];
@@ -67,7 +67,7 @@ public class Gradient {
 
     public static void printTest(QuadraticFunction function, double[] x0) {
         System.out.println("STEP:");
-        Answer answer = StepGradient.gradient(x0, function, MinimisationMethod.BRENT, EPS, -BORDER, BORDER);
+        Answer answer = StepGradient.gradient(x0, function, MinimisationMethod.DICHOTOMY, EPS, -BORDER, BORDER);
         answer.printAns();
 
         System.out.println("FASTEST:");

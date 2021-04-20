@@ -15,13 +15,22 @@
         <div class="name">Алгоритмы многомерной минимизации функции</div>
     </div>
 
+    <h3>Траектории методов для квадратичных функций</h3>
     <div class="methods">
         <div class="methodsTitle">Выберите метод</div>
         <ul>
-            <li class="active" id="gradient">Метод градиентного спуска</li>
-            <li id="gradientGreatDescent">Метод наискорейшего спуска</li>
+            <li id="gradient">Метод градиентного спуска</li>
+            <li  id="gradientGreatDescent">Метод наискорейшего спуска</li>
             <li id="gradientConjugate">Метод сопряженных градиентов</li>
         </ul>
+    </div>
+    <div class="functions">
+        <div class="functionsTitle">Выберите функцию</div>
+            <ul>
+                <li id="quad1">24x^2 + 6xy + 14y^2 - 5x + 10y - 11 <math>24x^2</math></li>
+                <li id="quad2">64x^2 + 126xy + 64y^2 - 10x + 30y + 13</li>
+                <li id="quad3">35x^2 - 69xy + 35y^2 - 34x + 25y - 24</li>
+            </ul>
     </div>
 
     <!--<form id="form">
@@ -29,21 +38,19 @@
         <span id="eps-value"></span>
         <input type="range" min="1" max="8" value="4" class="slider" id="eps">
         <button type="button" class="btn"><span>Рассчитать</span></button>
-    </form>
-
-    <canvas id="intervals" height="200px"></canvas>
-
-    <div class="datatable"></div>-->
-    <div id='plotly'><!-- Plotly chart will be drawn inside this DIV --></div>
+    </form>-->
+    <div id='plotly' class="field"><!-- Plotly chart will be drawn inside this DIV --></div>
 
     <div class="result">
         <div>Полученная&ensp;<strong>точка</strong>&ensp;локального минимума : <span id="dot-min">&ensp;-</span></div>
         <div>Значение&ensp;<strong>f(x, y)</strong>&ensp;в этой точке : <span id="func-min">&ensp;-</span></div>
     </div>
 
-    <div id='step'><!-- Plotly chart will be drawn inside this DIV --></div>
-    <div id='great'><!-- Plotly chart will be drawn inside this DIV --></div>
-    <div id='conjugate'><!-- Plotly chart will be drawn inside this DIV --></div>
+    <hr>
+    <h3>Зависимость количества итераций от n/k</h3>
+    <div id='step' class="field"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id='great' class="field"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id='conjugate' class="field"><!-- Plotly chart will be drawn inside this DIV --></div>
 
 </div>
 <script src="js/index.js" type="module"></script>

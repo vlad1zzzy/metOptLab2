@@ -1,9 +1,10 @@
 export class QuadraticFunction {
-    constructor(a, b, c, func) {
+    constructor(a, b, c, func, funcStr) {
         this.a = a;
         this.b = b;
         this.c = c;
         this.func = func;
+        this.funcStr = funcStr;
     }
 
     findFdkX(k, x) {
@@ -58,6 +59,19 @@ export class QuadraticFunction {
         let ans = 0;
         for (let i = 0; i < x1.length; i++) {
             ans += x1[i] * x2[i];
+        }
+        return ans;
+    }
+
+   findAp(p) {
+        const ans = new Array(this.a.length).fill(0);
+        for (let i = 0; i < this.a.length; i++) {
+            for (let j = 0; j < this.a.length; j++) {
+                if (i === j) {
+                    ans[i] += this.a[i][j] * p[j];
+                }
+                ans[i] += this.a[i][j] * p[j];
+            }
         }
         return ans;
     }
