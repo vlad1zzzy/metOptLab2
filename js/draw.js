@@ -17,6 +17,7 @@ export function drawGradient(x, y, func, funcStr = "f") {
             z_lvl[j][i] = func(x_lvl[i], y_lvl[j]);
         }
     }
+
     const trace1 = {
         x: x,
         y: y,
@@ -26,6 +27,7 @@ export function drawGradient(x, y, func, funcStr = "f") {
             size: 3
         }
     };
+
     const trace2 = {
         x: x_lvl,
         y: y_lvl,
@@ -44,6 +46,7 @@ export function drawGradient(x, y, func, funcStr = "f") {
         title: "Gradient",
         showlegend: false,
         hovermode: 'closest',
+
     };
     let config = {responsive: true}
     Plotly.newPlot(plot, data, layout, config);

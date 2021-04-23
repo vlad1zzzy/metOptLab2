@@ -44,6 +44,30 @@ h1, h2, h3 {
     text-align: center;
 }
 
+.arrows {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.arrows.disabled {
+    display: none;
+}
+
+.next,
+.prev {
+    background: none;
+    border: none;
+    margin: 0 10px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.next.disabled,
+.prev.disabled {
+    opacity: .25;
+    pointer-events: none;
+}
+
 .disabledInput {
     display: none;
 }
