@@ -41,6 +41,8 @@ addHandlers(functions, "func")
 // CHOSE ACCURACY
 const epsSlider = document.getElementById("eps");
 const epsValue = document.getElementById("eps-value");
+const x0 = document.getElementById("x0");
+const y0 = document.getElementById("y0");
 epsValue.innerHTML = epsSlider.value;
 epsSlider.oninput = function () {
     epsValue.innerHTML = this.value;
@@ -94,7 +96,7 @@ function addHandlers(nodes, element) {
 }
 
 function calculate(step = -2) {
-    const data = current.method([20, 20], current.func, Math.pow(10, -epsValue.innerHTML), -100, 100);
+    const data = current.method([+x0.value, +y0.value], current.func, Math.pow(10, -epsValue.innerHTML), -100, 100);
     const dataX = data.map(el => el[0]).slice(0, step + 1);
     const dataY = data.map(el => el[1]).slice(0, step + 1);
 

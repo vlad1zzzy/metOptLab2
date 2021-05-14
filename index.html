@@ -37,6 +37,12 @@
         <label for="eps">Выберите точность 10^-</label>
         <span id="eps-value"></span>
         <input type="range" min="1" max="8" value="4" class="slider" id="eps">
+        <label>и начальное приближение(</label>
+        <label for="x0">x: </label>
+        <input type="number" id="x0" min="-100" max="100" value="0">
+        <label for="y0">y: </label>
+        <input type="number" id="y0" min="-100" max="100" value="0">
+        <span>)</span>
         <button type="button" class="btn"><span id="calculate">Рассчитать</span></button>
     </form>
     <div class="arrows disabled">
